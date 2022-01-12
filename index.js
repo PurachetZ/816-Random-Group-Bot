@@ -53,8 +53,10 @@ function randomGroup(num){
     return text;
 }
 
+
 client.on('ready', () => {
     console.log('your bot is ready');
+    client.user.setActivity('!!help');
 })
 
 // คำสั่ง Help ใช้แสดงคำสั่งทั้งหมด
@@ -69,19 +71,19 @@ client.on('messageCreate', msg => {
 
 // คำสั่ง add เพิ่มรายชื่อคน
 client.on('messageCreate', msg => {
-    if(msg.author.bot == false && msg.content.slice(0, 5) == '!add ') {
-        let rawText = msg.content.replace('!add ', '');
+    if(msg.author.bot == false && msg.content.slice(0, 6) == '!!add ') {
+        let rawText = msg.content.replace('!!add ', '');
         rawText.split(' ');
         user.push(...rawText.split(' '))
-        msg.reply(msg.content.replace('!add ', ''))
+        msg.reply(msg.content.replace('!!add ', ''))
 
     }
 })
 
 // ทำการสุ่ม
 client.on('messageCreate', msg => {
-    if(msg.content.slice(0, 8) == '!random '){
-        groupNum = msg.content.replace('!random ', '');
+    if(msg.content.slice(0, 9) == '!!random '){
+        groupNum = msg.content.replace('!!random ', '');
         msg.reply(randomGroup(groupNum))
     }
 })
@@ -89,15 +91,15 @@ client.on('messageCreate', msg => {
 
 // เพิ่มตนเองเข้าไปอยู่ใน user pool อาจทำเพิ่ม
 client.on('messageCreate', msg => {
-    if(msg.author.bot == false && msg.content.slice(0, 7) == '!addme ' || msg.content.slice(0, 6) == '!addme') {
-        // let rawText = msg.content.replace('!addme ', '');
+    if(msg.author.bot == false && msg.content.slice(0, 8) == '!!addme ' || msg.content.slice(0, 7) == '!!addme') {
+        // let rawText = msg.content.replace('!!addme ', '');
         user.push(msg.author.username)
         msg.reply(`เพิ่ม ${msg.author.username} ลงใน user pool แล้ว`)
     }
 })
 
 client.on('messageCreate', msg => {
-    if(msg.content == '!show'){
+    if(msg.content == '!!show'){
         msg.reply(showAll(msg));
     }
 })
